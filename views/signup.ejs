@@ -14,7 +14,7 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-<!--    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />-->
+    <!--    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />-->
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -44,13 +44,18 @@
 
     <div class="container">
         <div class="row">
-            <form class="col s12 m12 l6 offset-l3" action="" method="post">
+            <form
+                class="col s12 m12 l6 offset-l3"
+                action="/signup"
+                method="post"
+            >
                 <h4 class="center-align">Register</h4>
                 <div class="row">
                     <div class="input-field">
                         <input
                             id="first_name"
                             type="text"
+                            name="username"
                             class="validate">
                         <label for="first_name">Username</label>
                     </div>
@@ -60,13 +65,18 @@
                         <input
                             id="email"
                             type="email"
+                            name="email"
                             class="validate">
                         <label for="email">Email</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field">
-                        <input id="password" type="password" class="validate">
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            class="validate">
                         <label for="password">Password</label>
                     </div>
                 </div>

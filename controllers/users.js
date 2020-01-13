@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (_, passport) {
+module.exports = function (_, passport, User) {
 
   return {
     setRouting: function (router) {
@@ -24,11 +24,17 @@ module.exports = function (_, passport) {
       return res.render('home');
     },
 
+    // postSignUp: function (req, res) {
+    //   console.log('postSignUp')
+    //   return true
+    // }
+
     postSignUp: passport.authenticate('local.signup', {
       successRedirect: '/home',
-      failureRedirect: '',
+      failureRedirect: '/signup',
       failureFlash: true
     })
+
   }
 
 };

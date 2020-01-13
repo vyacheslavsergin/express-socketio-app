@@ -33,10 +33,10 @@ container.resolve(function (users) {
     configureExpress(app);
 
     const router = require('express-promise-router')();
-
     users.setRouting(router);
 
     app.use(router);
+
   }
 
   function configureExpress(app) {
@@ -50,6 +50,7 @@ container.resolve(function (users) {
 
     app.use(session({
       secret: 'thisissecretkey',
+      // secret: '',
       resave: false,
       saveUninitialized: false,
       store: new MongoStore({
@@ -61,6 +62,7 @@ container.resolve(function (users) {
 
     app.use(passport.initialize());
     app.use(passport.session());
+
   }
 
 });
