@@ -22,7 +22,7 @@ passport.use('local.signup', new LocalStrategy({
   passReqToCallback: true
 }, (req, email, password, done) => {
 
-  console.log('local.signup')
+  console.log('local.signup');
 
   User.findOne({'email': email}, (err, user) => {
 
@@ -44,4 +44,29 @@ passport.use('local.signup', new LocalStrategy({
     });
   });
 
+}));
+
+passport.use('local.login', new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password',
+  passReqToCallback: true
+}, (req, email, password, done) => {
+
+  console.log('local.login');
+
+  User.findOne({'email': email}, (err, user) => {
+
+    if (err) {
+      return done(err);
+    }
+
+    const messages = [];
+    // console.log('messages', messages)
+    if (!user || !user.validUserPassword(password)) {
+      messages.push('Email Does Not Exist or Password is Invalid');
+      return done(null, false, req.flash('error', messages));
+    }
+
+    return done(null, user);
+  });
 }));

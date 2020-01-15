@@ -9,15 +9,26 @@ module.exports = function (_, passport, User) {
       router.get('/home', this.homePage);
 
 
-      router.post('/signup', this.postSignUp);
+      router.post('/', User.LoginValidation, this.postLogin);
+      router.post('/signup', User.SignUpValidation, this.postSignUp);
     },
 
     indexPage: function (req, res) {
-      return res.render('index', {test: 'This is a test'});
+      const errors = req.flash('error');
+      return res.render('index', {
+        title: 'Login',
+        messages: errors,
+        hasErrors: errors.length > 0
+      });
     },
 
     getSignUp: function (req, res) {
-      return res.render('signup');
+      const errors = req.flash('error');
+      return res.render('signup', {
+        title: 'Signup',
+        messages: errors,
+        hasErrors: errors.length > 0
+      });
     },
 
     homePage: function (req, res) {
@@ -28,6 +39,12 @@ module.exports = function (_, passport, User) {
     //   console.log('postSignUp')
     //   return true
     // }
+
+    postLogin: passport.authenticate('local.login', {
+      successRedirect: '/home',
+      failureRedirect: '/',
+      failureFlash: true
+    }),
 
     postSignUp: passport.authenticate('local.signup', {
       successRedirect: '/home',

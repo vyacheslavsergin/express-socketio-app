@@ -1,6 +1,6 @@
 // import webpack from '../../../general/images/webpack.png'
-// import react from '../../../general/images/react.png'
-import logo from '../../../general/images/svg/webpack.svg'
+import react from '../../../general/images/react.png'
+// import logo from '../../../general/images/svg/webpack.svg'
 
 // console.log('logo', logo)
 
@@ -15,7 +15,7 @@ class Dummy {
     console.log('dummy is running!')
 
     let img = document.createElement('img')
-    img.setAttribute('src', logo)
+    img.setAttribute('src', react)
 
     document.body.appendChild(img)
   }

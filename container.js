@@ -6,7 +6,8 @@ const container = dependable.container();
 const simpleDependencies = [
   ['_', 'lodash'],
   ['mongoose', 'mongoose'],
-  ['passport', 'passport']
+  ['passport', 'passport'],
+  ['validator', 'express-validator']
 ];
 
 simpleDependencies.forEach(function (val) {
