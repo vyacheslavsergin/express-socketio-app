@@ -7,7 +7,7 @@ const simpleDependencies = [
   ['_', 'lodash'],
   ['mongoose', 'mongoose'],
   ['passport', 'passport'],
-  ['validator', 'express-validator']
+  ['formidable', 'formidable'],
 ];
 
 simpleDependencies.forEach(function (val) {
