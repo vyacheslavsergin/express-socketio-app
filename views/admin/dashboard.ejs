@@ -44,11 +44,11 @@
 
   <div class="container">
     <div class="row">
+<!--      enctype="multipart/form-data"-->
       <form
               class="col s12 m12 l6 offset-l3"
               action="/dashboard"
               method="post"
-              enctype="multipart/form-data"
               data-app-component="upload"
       >
         <div class="row">
@@ -78,29 +78,35 @@
             <div class="btn">
               <span>File</span>
               <input
-                type="file"
-                name="upload"
-                id="upload-input"
-                data-upload-ref="upload-input"
+                      type="file"
+                      name="upload"
+                      id="upload-input"
+                      data-upload-ref="upload-input"
               >
             </div>
             <div class="file-path-wrapper">
               <input
-                    class="file-path validate"
-                    type="text"
-                    data-upload-ref="file-path"
+                      class="file-path validate"
+                      type="text"
+                      data-upload-ref="file-path"
               >
             </div>
           </div>
         </div>
         <div class="row">
           <button
-            class="waves-effect
-            waves-light btn right"
-            type="button"
-            data-upload-ref="upload-btn"
+                  class="waves-effect waves-light btn left"
+                  type="button"
+                  data-upload-ref="upload-btn"
           >
             Upload File
+          </button>
+
+          <button
+                  class="waves-effect waves-light btn right"
+                  type="submit"
+          >
+            Add Group
           </button>
         </div>
       </form>

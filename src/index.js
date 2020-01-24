@@ -1,9 +1,12 @@
+// import 'materialize-css';
+
 /* styles */
 import './general/scss/index.scss';
 
 /* components */
 import './components/dummy';
 import './components/upload';
+import './components/select';
 
 /* init app */
 // import app from './general/js/app'

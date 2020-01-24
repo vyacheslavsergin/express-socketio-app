@@ -3,7 +3,6 @@ module.exports = function (_, passport, User) {
     setRouting: function (router) {
       router.get('/', this.indexPage);
       router.get('/signup', this.getSignUp);
-      router.get('/home', this.homePage);
 
 
       router.post('/', User.LoginValidation, this.postLogin);
@@ -26,10 +25,6 @@ module.exports = function (_, passport, User) {
         messages: errors,
         hasErrors: errors.length > 0,
       });
-    },
-
-    homePage: function (req, res) {
-      return res.render('home');
     },
 
     // postSignUp: function (req, res) {

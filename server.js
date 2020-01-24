@@ -12,7 +12,7 @@ const passport = require('passport');
 
 const container = require('./container');
 
-container.resolve(function (users, _, admin) {
+container.resolve(function (users, _, admin, home) {
 
   mongoose.Promise = global.Promise;
   mongoose.connect('mongodb://localhost/footballkik', {
@@ -36,6 +36,7 @@ container.resolve(function (users, _, admin) {
     const router = require('express-promise-router')();
     users.setRouting(router);
     admin.setRouting(router);
+    home.setRouting(router);
 
     app.use(router);
 

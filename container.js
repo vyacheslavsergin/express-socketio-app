@@ -8,6 +8,8 @@ const simpleDependencies = [
   ['mongoose', 'mongoose'],
   ['passport', 'passport'],
   ['formidable', 'formidable'],
+  ['async', 'async'],
+  ['Club', './models/clubs'],
 ];
 
 simpleDependencies.forEach(function (val) {
