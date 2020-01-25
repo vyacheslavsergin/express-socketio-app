@@ -13,9 +13,16 @@ module.exports = function (async, Club, _) {
         },
       ], (err, results) => {
         const res1 = results[0];
-        console.log('res1', res1)
+        // console.log('res1', res1);
 
-        return res.render('home', { title: 'Footbalkik - Home', data: res1 });
+        const dataChunk = [];
+        const chunkSize = 3;
+        for (let i = 0; i < res1.length; i += chunkSize) {
+          dataChunk.push(res1.slice(i, i + chunkSize));
+        }
+        // console.log('dataChunk', dataChunk);
+
+        return res.render('home', { title: 'Footbalkik - Home', data: dataChunk });
       });
     },
   };

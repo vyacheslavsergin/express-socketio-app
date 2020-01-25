@@ -48,8 +48,8 @@ class Upload {
 
     axios.post('/uploadFile', formData, contentType)
       .then(function (response) {
-        uploadInput.value = '';
-        filePath.value = '';
+        // uploadInput.value = '';
+        // filePath.value = '';
       })
       .catch(function (error) {
         console.log(error);

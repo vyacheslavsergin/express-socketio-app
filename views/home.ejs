@@ -79,6 +79,28 @@
                 </div>
             </form>
         </div>
+        <% _.forEach(data, function (val) { %>
+            <div class="row hi-there">
+                <% _.forEach(val, function (val2) { %>
+                    <div class="col s12 m4">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="/uploads/<%= val2.image %>" alt="">
+                                <span class="card-title">
+                                    <%= val2.name %>
+                                </span>
+                            </div>
+                            <div class="card-content">
+                                <p><%= val2.country %></p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% }) %>
     </div>
 </div>
 <!--
