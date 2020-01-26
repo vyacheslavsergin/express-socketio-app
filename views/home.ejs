@@ -1,106 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="theme-color" content="#000000"/>
-    <meta
-            name="description"
-            content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <!--    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />-->
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<%- include ('partials/header'); %>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="/assets/css/app.css">
-    <title>App</title>
-</head>
-<body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<div id="root">
-    <nav class="light-blue darken-4">
-        <div class="container nav-wrapper">
-            <a href="#" class="brand-logo">Logo</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="/">Login</a></li>
-                <li><a href="/signup">Register</a></li>
-            </ul>
-        </div>
-    </nav>
+<%- include ('partials/navbar'); %>
 
     <div class="container">
         <div class="row">
             <form
                     class="col s12"
-                    action=""
+                    action="results"
+                    method="post"
             >
                 <div class="row">
                     <div class="input-field">
                         <input
-                                id="email"
-                                type="email"
-                                name="email"
-                                class="validate"
+                            id="email"
+                            type="email"
+                            name="email"
+                            class="validate"
                         >
-                        <label for="email">Email</label>
+                        <label for="email">Search</label>
+                        <button
+                            class="waves-effect waves-light btn"
+                            type="submit"
+                        >
+                            Search
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
         <div class="row">
-            <form
-                    class="col s12"
-                    action=""
-            >
-                <div class="row">
-                    <div class="input-field col s12">
-                        <select data-app-component="select">
-                            <option value="" disabled selected>Choose your option</option>
-                            <option value="one1">Option 1</option>
-                            <option value="two2">Option 2</option>
-                            <option value="three3">Option 3</option>
-                        </select>
-                        <label>Materialize Select</label>
+            <div class="col s3">
+                <form
+                        action="/results"
+                        method="post"
+                >
+                    <div class="row">
+                        <div>
+                            <select data-app-component="select">
+                                <option value="" disabled selected>Filter by country</option>
+                                <% _.forEach(country, function(value) { %>
+                                    <option value="<%= value._id %>"><%= value._id %></option>
+                                <% }) %>
+                            </select>
+                            <label>Filter by country</label>
+                        </div>
+                        <button
+                                class="waves-effect waves-light btn"
+                                type="submit"
+                        >
+                            Apply
+                        </button>
                     </div>
-                </div>
-            </form>
-        </div>
-        <% _.forEach(data, function (val) { %>
-            <div class="row hi-there">
-                <% _.forEach(val, function (val2) { %>
-                    <div class="col s12 m4">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="/uploads/<%= val2.image %>" alt="">
-                                <span class="card-title">
+                </form>
+            </div>
+            <div class="col s9">
+                <% _.forEach(data, function (val) { %>
+                    <div class="row">
+                        <% _.forEach(val, function (val2) { %>
+                            <div class="col s12 m4">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img src="/uploads/<%= val2.image %>" alt="">
+                                        <span class="card-title">
                                     <%= val2.name %>
                                 </span>
+                                    </div>
+                                    <div class="card-content">
+                                        <p><%= val2.country %></p>
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="/group/<%= val2.name %>">This is a link</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-content">
-                                <p><%= val2.country %></p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">This is a link</a>
-                            </div>
-                        </div>
+                        <% }) %>
                     </div>
                 <% }) %>
             </div>
-        <% }) %>
+        </div>
     </div>
 </div>
 <!--

@@ -11,9 +11,22 @@ module.exports = function (async, Club, _) {
             callback(err, result);
           });
         },
+
+        function (callback) {
+          Club.aggregate([{
+            $group: {
+              _id: '$country',
+            },
+          }], (err, newResult) => {
+            callback(err, newResult);
+          });
+        },
+
       ], (err, results) => {
         const res1 = results[0];
+        const res2 = results[1];
         // console.log('res1', res1);
+        // console.log('res2', res2);
 
         const dataChunk = [];
         const chunkSize = 3;
@@ -22,7 +35,14 @@ module.exports = function (async, Club, _) {
         }
         // console.log('dataChunk', dataChunk);
 
-        return res.render('home', { title: 'Footbalkik - Home', data: dataChunk });
+        const countrySort = _.sortBy(res2, '_id');
+        // console.log('countrySort', countrySort);
+
+        return res.render('home', {
+          title: 'Footbalkik - Home',
+          data: dataChunk,
+          country: countrySort,
+        });
       });
     },
   };

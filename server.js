@@ -9,10 +9,11 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require('passport');
+const socketIO = require('socket.io');
 
 const container = require('./container');
 
-container.resolve(function (users, _, admin, home) {
+container.resolve(function (users, _, admin, home, group) {
 
   mongoose.Promise = global.Promise;
   mongoose.connect('mongodb://localhost/footballkik', {
@@ -26,17 +27,22 @@ container.resolve(function (users, _, admin, home) {
   function setExpress() {
     const app = express();
     const server = http.createServer(app);
+    // const io = socketIO('socket.io')(server);
+    const io = socketIO(server);
 
-    server.listen(3000, function () {
+    server.listen(3000,  () => {
       console.log('Listening on port 3000');
     });
 
-    configureExpress(app);
+    configureExpress(app, io);
+
+    require('./socket/groupchat')(io);
 
     const router = require('express-promise-router')();
     users.setRouting(router);
     admin.setRouting(router);
     home.setRouting(router);
+    group.setRouting(router);
 
     app.use(router);
 
