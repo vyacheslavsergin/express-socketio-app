@@ -4,41 +4,71 @@
 
 <div class="container" data-app-component="groupchat">
     <div class="row">
-
-    </div>
-    <div class="row">
         <form
                 class="col s12 m12 l6 offset-l3"
                 action="/"
                 method="post"
+                data-groupchat-ref="message-form"
         >
-            <h4 class="center-align"><%= name %></h4>
+            <h4 class="center-align">user: <%= user.username %></h4>
+            <h4 class="center-align"><%= groupName %></h4>
 
             <div class="row">
-                <div class="input-field">
-                    <input
-                            id="email"
-                            type="email"
-                            name="email"
-                            class="validate"
+                <div class="chat-area">
+                    <ul data-groupchat-ref="messages">
+                        <!--                <li class="left">-->
+                        <!--                    <span>-->
+                        <!--                        <img src="" alt="">-->
+                        <!--                    </span>-->
+                        <!--                    <div>-->
+                        <!--                        <span>Username</span>-->
+                        <!--                        Message body-->
+                        <!--                    </div>-->
+                        <!--                </li>-->
+                    </ul>
+                    <script
+                            id="message-template"
+                            data-groupchat-ref="message-template"
+                            type="text/template"
                     >
-                    <label for="email">Email</label>
+                        <li>
+                    <span>
+                        <img src="" alt="">
+                    </span>
+                            <div>
+                                <b>{{ sender }}</b>
+                                {{ text }}
+                            </div>
+                        </li>
+                    </script>
                 </div>
             </div>
+
             <div class="row">
-                <div class="input-field">
-                    <input
-                            id="password"
-                            type="password"
-                            name="password"
-                            class="validate"
-                    >
-                    <label for="password">Password</label>
+                <div class="input-field col s12">
+                    <textarea
+                        id="textarea1"
+                        class="materialize-textarea"
+                        data-groupchat-ref="msg"></textarea>
+                    <label for="textarea1">Textarea</label>
                 </div>
             </div>
+
+            <input
+                    type="hidden"
+                    id="groupName"
+                    value="<%= groupName %>"
+                    data-groupchat-ref="groupName"
+            >
+            <input
+                    type="hidden"
+                    id="sender"
+                    value="<%= user.username %>"
+                    data-groupchat-ref="userName"
+            >
+
             <div class="row">
-                <a class="left" href="/signup">Not Yet Registered?</a>
-                <button class="waves-effect waves-light btn right" type="submit">Login</button>
+                <button class="waves-effect waves-light btn right" type="submit">Send</button>
             </div>
         </form>
     </div>
