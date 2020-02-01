@@ -22,6 +22,8 @@ class Groupchat {
   }
 
   init = () => {
+    console.log('Groupchat init()');
+
     this.messageFormRef.addEventListener('submit', this.onMessageFormSubmit, false);
 
     const socket = this.socket;
@@ -32,6 +34,11 @@ class Groupchat {
     const usersContent = this.users;
 
     socket.on('usersList', function (users) {
+      console.log('usersList()');
+      console.log('users', users);
+
+      usersContent.innerHTML = '';
+
       let node = document.createElement('div');
 
       for (let i = 0; i < users.length; i++) {
