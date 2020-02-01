@@ -14,46 +14,48 @@ class Groupchat {
     this.userNameInput = this.el.querySelector('[data-groupchat-ref="userName"]');
     this.messageTemplate = this.el.querySelector('[data-groupchat-ref="message-template"]');
     this.messages = this.el.querySelector('[data-groupchat-ref="messages"]');
+    this.users = this.el.querySelector('[data-groupchat-ref="users"]');
     this.room = this.groupNameInput.value;
     this.sender = this.userNameInput.value;
-
-    console.log('room', this.room);
-    console.log('sender', this.sender);
-    console.log('messageTemplate', this.messageTemplate);
 
     this.init();
   }
 
   init = () => {
-    // console.log('socket', socket);
-
     this.messageFormRef.addEventListener('submit', this.onMessageFormSubmit, false);
 
     const socket = this.socket;
     const room = this.room;
     const template = this.messageTemplate.innerHTML;
-
     const messages = this.messages;
+    const sender = this.sender;
+    const usersContent = this.users;
+
+    socket.on('usersList', function (users) {
+      let node = document.createElement('div');
+
+      for (let i = 0; i < users.length; i++) {
+        node.insertAdjacentHTML('beforeend', `<p>${users[i]}</p>`);
+      }
+
+      usersContent.appendChild(node);
+    });
 
     socket.on('newMessage', function (data) {
-      // console.log('data', data);
-      // console.log('template', template);
 
       const message = Mustache.render(template, {
         text: data.text,
         sender: data.from,
       });
-      console.log('message', message);
 
-      // messages.innerHTML = message;
       messages.insertAdjacentHTML('beforeend', message);
     });
 
     socket.on('connect', function () {
-      console.log('User connected');
-
-      const params = { room };
-      console.log('params', params);
+      const params = {
+        room,
+        name: sender
+      };
 
       socket.emit('join', params, function () {
         console.log('User has joined this channel');
@@ -63,8 +65,6 @@ class Groupchat {
 
   onMessageFormSubmit = (event) => {
     event.preventDefault();
-    // console.log('onMessageFormSubmit()');
-    // console.log('value', this.msg.value);
 
     const room = this.room;
     const msgRef = this.msgRef;
@@ -75,7 +75,6 @@ class Groupchat {
       room,
       sender
     }, function () {
-      console.log('createMessage()');
       msgRef.value = '';
     });
   }

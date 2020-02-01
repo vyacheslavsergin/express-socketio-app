@@ -10,6 +10,13 @@
                 method="post"
                 data-groupchat-ref="message-form"
         >
+
+            <div class="row">
+                <h4>Users</h4>
+                <div class="users" data-groupchat-ref="users">
+                </div>
+            </div>
+
             <h4 class="center-align">user: <%= user.username %></h4>
             <h4 class="center-align"><%= groupName %></h4>
 
@@ -32,9 +39,9 @@
                             type="text/template"
                     >
                         <li>
-                    <span>
-                        <img src="" alt="">
-                    </span>
+                            <span>
+                                <img src="" alt="">
+                            </span>
                             <div>
                                 <b>{{ sender }}</b>
                                 {{ text }}

@@ -6,10 +6,6 @@ module.exports = function () {
 
     groupPage: function (req, res) {
       const { name } = req.params;
-      // console.log('name', name);
-
-      // console.log('req', req)
-      // console.log('user', req.user)
 
       res.render('groupchat/group', {
         title: 'Title',
