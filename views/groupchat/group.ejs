@@ -13,8 +13,12 @@
 
             <div class="row">
                 <h4>Users</h4>
+                <div>Online</div>
+                <div class="num-value" data-groupchat-ref="num-value">
+                </div>
                 <div class="users" data-groupchat-ref="users">
                 </div>
+            </div>
             </div>
 
             <h4 class="center-align">user: <%= user.username %></h4>
@@ -78,6 +82,22 @@
                 <button class="waves-effect waves-light btn right" type="submit">Send</button>
             </div>
         </form>
+    <div>
+
+    <div data-app-component="modal">
+        <div id="modal1" class="modal" data-modal-ref="modal">
+            <div class="modal-content">
+                <h4 data-modal-ref="modal-headline">Modal Header</h4>
+                <p>A bunch of text</p>
+                <form action="" method="post" data-modal-ref="modal-form">
+                    <input type="hidden" name="receiverName" value="" data-modal-ref="receiver-name">
+                </form>
+                <a href="" data-modal-ref="name-link">View Profile</a>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
     </div>
 </div>
 </div>
@@ -94,6 +114,5 @@
 <!-- Compiled and minified JavaScript -->
 <script src="/socket.io/socket.io.js"></script>
 <script src="/assets/js/app.js"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
 </body>
 </html>

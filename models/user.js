@@ -5,35 +5,47 @@ const userSchema = mongoose.Schema({
   username: {
     type: String,
     unique: true,
-    default: ''
+    default: '',
   },
   fullname: {
     type: String,
     unique: true,
-    default: ''
+    default: '',
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    default: ''
+    default: '',
   },
   userImage: {
     type: String,
-    default: 'defaultPic.png'
+    default: 'defaultPic.png',
   },
   facebook: {
     type: String,
-    default: ''
+    default: '',
   },
   fbTokens: Array,
   google: {
     type: String,
-    default: ''
+    default: '',
   },
-  googleTokens: Array
+  googleTokens: Array,
+  sentRequest: [{
+    username: { type: String, default: '' },
+  }],
+  request: [{
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    username: { type: String, default: '' },
+  }],
+  friendsList: [{
+    friendId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    friendName: { type: String, default: '' },
+  }],
+  totalRequest: { type: Number, default: 0 },
 });
 
 userSchema.methods.encryptPassword = function (password) {

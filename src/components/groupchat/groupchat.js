@@ -15,6 +15,7 @@ class Groupchat {
     this.messageTemplate = this.el.querySelector('[data-groupchat-ref="message-template"]');
     this.messages = this.el.querySelector('[data-groupchat-ref="messages"]');
     this.users = this.el.querySelector('[data-groupchat-ref="users"]');
+    this.numValue = this.el.querySelector('[data-groupchat-ref="num-value"]');
     this.room = this.groupNameInput.value;
     this.sender = this.userNameInput.value;
 
@@ -22,8 +23,6 @@ class Groupchat {
   }
 
   init = () => {
-    console.log('Groupchat init()');
-
     this.messageFormRef.addEventListener('submit', this.onMessageFormSubmit, false);
 
     const socket = this.socket;
@@ -32,18 +31,26 @@ class Groupchat {
     const messages = this.messages;
     const sender = this.sender;
     const usersContent = this.users;
+    const numValue = this.numValue;
 
     socket.on('usersList', function (users) {
-      console.log('usersList()');
-      console.log('users', users);
 
       usersContent.innerHTML = '';
 
       let node = document.createElement('div');
 
       for (let i = 0; i < users.length; i++) {
-        node.insertAdjacentHTML('beforeend', `<p>${users[i]}</p>`);
+        node.insertAdjacentHTML('beforeend',
+          `<button
+                    type="button"
+                    class="modal-trigger"
+                    data-target="modal1"
+                >
+                    ${users[i]}
+                </button>`);
       }
+
+      numValue.textContent = users.length;
 
       usersContent.appendChild(node);
     });

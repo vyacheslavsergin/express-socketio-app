@@ -1,16 +1,12 @@
-'use strict';
-
 const passport = require('passport');
 const User = require('../models/user');
 const LocalStrategy = require('passport-local').Strategy;
 
 passport.serializeUser((user, done) => {
-  console.log('serializeUser');
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('deserializeUser');
   User.findById(id, (err, user) => {
     done(err, user);
   });
@@ -19,13 +15,11 @@ passport.deserializeUser((id, done) => {
 passport.use('local.signup', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
-  passReqToCallback: true
+  passReqToCallback: true,
 }, (req, email, password, done) => {
-
   console.log('local.signup');
 
-  User.findOne({'email': email}, (err, user) => {
-
+  User.findOne({ email: email }, (err, user) => {
     if (err) {
       return done(err);
     }
@@ -36,6 +30,7 @@ passport.use('local.signup', new LocalStrategy({
 
     const newUser = new User();
     newUser.username = req.body.username;
+    newUser.fullname = req.body.fullname;
     newUser.email = req.body.email;
     newUser.password = newUser.encryptPassword(req.body.password);
 
@@ -43,25 +38,22 @@ passport.use('local.signup', new LocalStrategy({
       done(null, newUser);
     });
   });
-
 }));
 
 passport.use('local.login', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
-  passReqToCallback: true
+  passReqToCallback: true,
 }, (req, email, password, done) => {
-
   console.log('local.login');
 
-  User.findOne({'email': email}, (err, user) => {
-
+  User.findOne({ email: email }, (err, user) => {
     if (err) {
       return done(err);
     }
 
     const messages = [];
-    // console.log('messages', messages)
+
     if (!user || !user.validUserPassword(password)) {
       messages.push('Email Does Not Exist or Password is Invalid');
       return done(null, false, req.flash('error', messages));

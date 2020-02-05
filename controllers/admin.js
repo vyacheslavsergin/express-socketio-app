@@ -11,14 +11,12 @@ module.exports = function (formidable, Club) {
     },
 
     adminPage: function (req, res) {
-      return res.render('admin/dashboard');
+      return res.render('admin/dashboard', {
+        user: req.user,
+      });
     },
 
     adminPostPage: function(req, res) {
-      // console.log(req.body.club);
-      // console.log(req.body.country);
-      // console.log(req.body.upload);
-
       const newClub = new Club();
 
       newClub.name = req.body.club;
@@ -26,10 +24,7 @@ module.exports = function (formidable, Club) {
       newClub.image = req.body.upload;
 
       newClub.save((err) => {
-        // res.render('admin/dashboard');
-
         res.redirect('/dashboard');
-
       });
     },
 
@@ -38,14 +33,7 @@ module.exports = function (formidable, Club) {
       form.encoding = 'utf-8';
       form.uploadDir = path.join(__dirname, '../public/uploads');
 
-      // console.log('form', form);
-      // console.log(form.uploadDir);
-
       form.on('file', (field, file) => {
-        // console.log('file');
-        // console.log(file.path);
-        // console.log(path.join(form.uploadDir, file.name));
-
         fs.rename(file.path, path.join(form.uploadDir, file.name), (err) => {
           if (err) {
             throw err;

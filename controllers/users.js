@@ -11,26 +11,33 @@ module.exports = function (_, passport, User) {
 
     indexPage: function (req, res) {
       const errors = req.flash('error');
+
+      if (req.user) {
+        res.redirect('/home');
+      }
+
       return res.render('index', {
         title: 'Login',
+        user: req.user,
         messages: errors,
         hasErrors: errors.length > 0,
       });
     },
 
     getSignUp: function (req, res) {
+      if (req.user) {
+        res.redirect('/home');
+      }
+
       const errors = req.flash('error');
+
       return res.render('signup', {
         title: 'Signup',
+        user: req.user,
         messages: errors,
         hasErrors: errors.length > 0,
       });
     },
-
-    // postSignUp: function (req, res) {
-    //   console.log('postSignUp')
-    //   return true
-    // }
 
     postLogin: passport.authenticate('local.login', {
       successRedirect: '/home',
@@ -43,6 +50,5 @@ module.exports = function (_, passport, User) {
       failureRedirect: '/signup',
       failureFlash: true,
     }),
-
   };
 };
